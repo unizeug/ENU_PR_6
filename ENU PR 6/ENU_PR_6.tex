@@ -64,8 +64,8 @@
         symmetrisches Dreiecksignal mit einer Amplitude von 2,5 Volt angelegt (2,5 Volt, damit für über 2 und unter -2 Volt
         die Codewörter 1111 1111 und 0000 0000 ausgegeben werden) und der Schalter auf PCM gestellt.
         Die beiden Ausgänge FS (Rahmensignal) und PCM (Pulsecode) werden auf die beiden Eingänge des Addierers gegeben. Da
-        beide Signale 5 Volt high und 0 Volt low ausgeben, wird die Verstärkung für das PCM-Signal auf 0 gestellt und die
-        Verstärkung für das Rahmensignal auf 8/5 gestellt, um die Anforderungen aus der Aufgabenstellung zu erfüllen.
+        beide Signale 5 Volt high und 0 Volt low ausgeben, wird die Verstärkung für das PCM-Signal auf 1 gestellt und
+        die Verstärkung für das Rahmensignal auf 8/5 gestellt, um die Anforderungen aus der Aufgabenstellung zu erfüllen.
         Mit dem Picoscope werden die Summe aus Rahmensignal und Pulscodesignal und eine steigende Flanke des Zeitignals
         gemessen und angezeigt.
         
@@ -355,6 +355,24 @@
     \end{quote}
     
 \end{quote}
+
+\section{Zusammenfassung}
+\begin{quote}
+	In diesem Versuch wurde ein analoges Signal mit Hilfe des PCM Encoder-Moduls in ein digitales umgewandelt, eine
+	steigende Flanke des Signals aufgenommen und dafür die Encoderkennlinie aufgenommen. Dabei ergab sich ein linearer
+	Verlauf, im Gegensatz zudem für die Vorbereitungsaufgaben gegebenen Messsatz, der mit einem nicht linearen Quantisierer
+	aufgenommen wurde.\\
+	Nach dem die Daten mit dem Encoder-Modul wieder 
+	Des weiteren wurde der Quantisierungsfehler über der Zeit betrachtet, wobei sich herauskristallisierte, dass er für die
+	Abtastung mit höherer Frequenz deutlich kleiner ist.\\
+	Der Histplot zeigt eine Gaußverteilung, die für eine niedrigere Abtastfrequenz sowohl größere Abweichungen von der 0
+	und außerdem eine breitere Verteilung aufweisen.\\
+	An dem Leistungsdichtespektrum ist auffällig, dass die Amplitude der einzelnen Peaks für eine niedrigere Abtastfrequenz
+	deutlich höher ist.
+ 
+ 
+    
+\end{quote} % end Sec: section
 
 
 \end{document}
