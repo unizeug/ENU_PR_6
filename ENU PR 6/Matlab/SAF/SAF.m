@@ -32,8 +32,8 @@ BitStart(1) = 0;
 BitStart(BitStart<0) = 0;
 
 invSF = fliplr(SFSamples);
-nullen = conv(DataSamples, invSF(1,:), 'same'); % 'same' schmeißt nur den mittleren Teil raus, der
-einsen = conv(DataSamples, invSF(2,:), 'same'); % so lang ist wie DataSamples uns ClkSamples
+nullen = conv(DataSamples, invSF(1,:));%, 'same'); % 'same' schmeißt nur den mittleren Teil raus, der
+einsen = conv(DataSamples, invSF(2,:));%, 'same'); % so lang ist wie DataSamples uns ClkSamples
 sig = nullen-einsen;
 
 
