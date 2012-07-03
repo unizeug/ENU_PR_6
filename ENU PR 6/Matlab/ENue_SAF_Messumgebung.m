@@ -10,15 +10,16 @@ SAF=1;          % Wenn 0, dann kein SAF
 Simulation=1;   % Wenn 0, dann keine Simulation
 
 %% Datensignal
-a=round(rand(1,1000));
+%a= round(rand(1,1000));
+a = [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]; %
 Data=a;
 % Kanalcodierung
 if SAF==1
     % SF0 stellt die Sendeform fuer eine 0 dar. Bsp: jede 0 soll durch 
     % [0 1 0] ersetzt werden. Dann muss SF=[0 1 0] sein.
     % SF1 stellt die Sendeform fuer eine 1 dar.
-    SF0=   [-1 -1 -1];
-    SF1=   [ 1  1  1];
+    SF0=  [-1  1  1];
+    SF1=  [ 1 -1 -1];
     Data=SFF(a,SF0,SF1);    %Fuehrt die Sendeformung durch. Data wird auf den Kanal gegeben.
 end
 
@@ -56,6 +57,22 @@ if Simulation==0
 end
 
 %% Analyse
-BER=            0
-SNR=            0
+
+if length(Y) == length(a)
+    disp('Länge stimmt')
+else
+    disp('Länge stimmt NICHT')
+end
+
+if Y == a
+    disp('Yaaaaaay')
+else
+    disp('Nooooo')
+end
+
+setdiff(a,Y)
+diff = sum(a-Y)
+
+BER=   0 % Formel (10.105) im script
+SNR=   0
 
