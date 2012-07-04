@@ -7,6 +7,10 @@ function [Values] = SAF(DataSamples,ClkSamples,SFSamples)
 %                       Zeile 2 enthaelt die Samples fuer SF1
 % @ Values      - (1xn) Bitfolge, die vom SAF ermittelt wurde
 
+% plot(SFSamples(1,:))
+% hold on
+% plot(SFSamples(2,:),'r')
+% hold off
 
 %% Digitalisierung der CLK
 
@@ -30,11 +34,34 @@ BitStart(1) = 0;
 
 % durch verschiebung entstandene negative Werte löschen
 BitStart(BitStart<0) = 0;
+BitStartInd = find(BitStart==1);
+
+% Letzten Abtastpunkt hinzufügen: Letzter index + den abstand zweier BitStarts
+BitStart( max(BitStartInd) + (BitStartInd(end) - BitStartInd(end-1)) ) = 1;
+BitStartInd = find(BitStart==1);
+
+% figure(20)
+% clf()
+% plot(ClkSamples)
+% hold on
+% plot(BitStart,'r')
+% hold off
+
 
 invSF = fliplr(SFSamples);
-nullen = conv(DataSamples, invSF(1,:), 'same'); % 'same' schmeißt nur den mittleren Teil raus, der
-einsen = conv(DataSamples, invSF(2,:), 'same'); % so lang ist wie DataSamples uns ClkSamples
-sig = nullen-einsen;
+nullen = conv(DataSamples, invSF(1,:)); % 'same' schmeißt nur den mittleren Teil raus, der
+einsen = conv(DataSamples, invSF(2,:)); % so lang ist wie DataSamples uns ClkSamples
+% length(nullen)
+% length(einsen)
+sig = einsen-nullen;
+
+% figure(21)
+% clf()
+% plot(DataSamples)
+% hold on
+% plot(nullen/700,'r')
+% stem(BitStart,'g+')
+% hold off
 
 
 %%AbtastZeitpunkte
@@ -46,11 +73,23 @@ sig = nullen-einsen;
 
 % Abtastung und Entscheidung des SAF-Signals
 
-max_ind = find(BitStart);
-Abgetastet = [sig(max_ind) sig(end)]; % DataSamples(end)
-Abgetastet(Abgetastet < 0.5) = 0;
-Abgetastet(Abgetastet >=0.5) = 1;
 
-Values=  Abgetastet;
+% edges=find(BitStart==1);
+% Values = zeros(1,length(edges)+1);
+% 
+% for i = 1:length(edges)
+%     if sig(edges(i)) >= 0
+%         Values(i) = 1;
+%     else
+%         Values(i) = 0;
+%     end
+% end
+
+
+Abgetastet = sig(BitStartInd);
+Abgetastet(Abgetastet<=0) = 0;
+Abgetastet(Abgetastet>0) = 1;
+
+Values = Abgetastet;
 
 end
