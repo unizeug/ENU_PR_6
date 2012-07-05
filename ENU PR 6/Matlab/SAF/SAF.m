@@ -17,7 +17,7 @@ function [Values] = SAF(DataSamples,ClkSamples,SFSamples)
 % kleinster Wert soll null sein
 ClkSamples = ( ClkSamples - min(ClkSamples) );
 
-% grÃ¶ÃŸter verbliebender Wert soll 1 sein
+% größter verbliebender Wert soll 1 sein
 ClkSamples = ClkSamples / max(ClkSamples);
 
 % Entscheider
@@ -25,18 +25,18 @@ ClkSamples(ClkSamples <  0.5) = 0;
 ClkSamples(ClkSamples >= 0.5) = 1;
 
 
-% Vektor erstellen, der eine 1 enthÃ¤lt wo ein neues Bit anfÃ¤ngt
+% Vektor erstellen, der eine 1 enthält wo ein neues Bit anfängt
 BitStart = ClkSamples(1:end) - [0 ClkSamples(1:end-1)];
 
 % wenn das erste Bit schon ne 1 ist wissen wir nicht, ob es wirklich der
 % Anfang eines Bits ist und Ignorieren sie.
 BitStart(1) = 0;
 
-% durch verschiebung entstandene negative Werte lÃ¶schen
+% durch verschiebung entstandene negative Werte löschen
 BitStart(BitStart<0) = 0;
 BitStartInd = find(BitStart==1);
 
-% Letzten Abtastpunkt hinzufÃ¼gen: Letzter index + den abstand zweier BitStarts
+% Letzten Abtastpunkt hinzufügen: Letzter index + den abstand zweier BitStarts
 BitStart( max(BitStartInd) + (BitStartInd(end) - BitStartInd(end-1)) ) = 1;
 BitStartInd = find(BitStart==1);
 
@@ -49,12 +49,7 @@ BitStartInd = find(BitStart==1);
 
 
 invSF = fliplr(SFSamples);
-nullen = conv(DataSamples, invSF(1,:));%, 'same'); % 'same' schmeiÃŸt nur den mittleren Teil raus, der
-einsen = conv(DataSamples, invSF(2,:));%, 'same'); % so lang ist wie DataSamples uns ClkSamples
-sig = einsen-nullen;
-
-
-nullen = conv(DataSamples, invSF(1,:)); % 'same' schmeiÃŸt nur den mittleren Teil raus, der
+nullen = conv(DataSamples, invSF(1,:)); % 'same' schmeißt nur den mittleren Teil raus, der
 einsen = conv(DataSamples, invSF(2,:)); % so lang ist wie DataSamples uns ClkSamples
 % length(nullen)
 % length(einsen)
@@ -72,12 +67,11 @@ sig = einsen-nullen;
 %%AbtastZeitpunkte
 %%HINWEIS: letzter Abtastzeitpunkt wird aus den vorherigen geschaetzt
 
-% durch das 'same' in der conv Funktion ist es nicht nÃ¶tig zu schÃ¤tzen. Der
+% durch das 'same' in der conv Funktion ist es nicht nötig zu schätzen. Der
 % letzte Wert in sig ist der den wir suchen
 
 
 % Abtastung und Entscheidung des SAF-Signals
-
 
 
 % edges=find(BitStart==1);

@@ -30,7 +30,9 @@ Data=a;
     BER_3_errechnet = 0;
     SNR_3 = 0;
     
-for setNoise=[0]
+    noise_variable=linspace(0,1000,15)
+    
+for setNoise=[noise_variable]
         disp('##############################################################')
     setNoise = setNoise 
 
@@ -98,9 +100,9 @@ for setNoise=[0]
     %% Analyse
 
     % if length(Y) == length(a)
-    %     disp('LÃ¤nge stimmt')
+    %     disp('Länge stimmt')
     % else
-    %     disp('LÃ¤nge stimmt NICHT')
+    %     disp('Länge stimmt NICHT')
     % end
     % 
     % if Y == a
