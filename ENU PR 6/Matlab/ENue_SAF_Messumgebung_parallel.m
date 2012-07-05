@@ -29,15 +29,16 @@ Data=a;
     BER_3_gemessen = 0;
     BER_3_errechnet = 0;
     SNR_3 = 0;
-
     
+
+%matlabpool
     
 noises = [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255]   
-for setNoise=noises
+for setNoise= [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255] 
         disp('##############################################################')
     setNoise = setNoise 
 
-    for SFFNr=1:3
+    parfor SFFNr=1:3
             disp('--------------------------------------------------------------')
     % SFFNr
             % Kanalcodierung
@@ -68,10 +69,11 @@ for setNoise=noises
     %% Kanal- und Filtereinstellungen
     KanalParameter.NoiseFactor=setNoise; % Werte von 0 bis 255
     if SAF==1
+        FilterParameter = 0
         FilterParameter.SF0=SF0;
         FilterParameter.SF1=SF1;
-        FilterParameter.BitBlockLength=numel(FilterParameter.SF0);
-        KanalParameter.BitGroupLength=numel(FilterParameter.SF0);
+        FilterParameter.BitBlockLength=numel(SF0);
+        KanalParameter.BitGroupLength=numel(SF0);
     end
     if Simulation==0
         [KanalParameter.ScopeHandle KanalParameter.ScopeVersion]=LoadPicoscope;    
@@ -166,6 +168,8 @@ for setNoise=noises
     end
     
 end
+
+%matlabpool close
 
 
 % Führende nullen löschen die beim initioalisieren übrig sind

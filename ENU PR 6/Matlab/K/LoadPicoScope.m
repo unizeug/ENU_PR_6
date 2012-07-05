@@ -57,7 +57,7 @@ if numel(Version)==numel('unknown')
             error('no PicoScope found')            
         end
     end
-else %Wenn nur Dateien für eines der beiden Versionen vorliegen
+else %Wenn nur Dateien fï¿½r eines der beiden Versionen vorliegen
     if numel(Version)==numel('3204')
         if ~libisloaded('PS3000')
             LoadLibrary('PS3000.dll','PS3000.h');
