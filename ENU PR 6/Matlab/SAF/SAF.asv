@@ -36,7 +36,17 @@ nullen = conv(DataSamples, invSF(1,:));%, 'same'); % 'same' schmeißt nur den mi
 einsen = conv(DataSamples, invSF(2,:));%, 'same'); % so lang ist wie DataSamples uns ClkSamples
 sig = einsen-nullen;
 
-
+figure(3);
+%subplot(Nc,Na,i);
+plot([1:1:length(DataSamples)],DataSamples,'b');
+hold on;
+stem([1:1:length(BitStart+1)],BitStart,'g');
+plot([1:1:length(nullen)],nullen/140,'r');
+hold off;%         axis tight;
+% ylim([-7 7]);
+% xlabel('t [s]');
+% ylabel('Amplitude [V]');
+% title(['\alpha = ' num2str(alpha_c) ' und f_T = ' num2str(f_c)]);
 
 
 %%AbtastZeitpunkte
@@ -49,9 +59,11 @@ sig = einsen-nullen;
 % Abtastung und Entscheidung des SAF-Signals
 
 max_ind = find(BitStart);
+abstand_Abtastpunkte=max_ind(end-1)-max_ind(end-2);
 Abgetastet = [sig(max_ind) max_ind(end)+abstand_Abtastpunkte]; % DataSamples(end)
 Abgetastet(Abgetastet >=0.0) = 1;
 Abgetastet(Abgetastet < 0.0) = 0;
+
 
 Values=  Abgetastet;
 
