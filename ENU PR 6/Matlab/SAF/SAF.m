@@ -17,7 +17,7 @@ function [Values] = SAF(DataSamples,ClkSamples,SFSamples)
 % kleinster Wert soll null sein
 ClkSamples = ( ClkSamples - min(ClkSamples) );
 
-% größter verbliebender Wert soll 1 sein
+% grï¿½ï¿½ter verbliebender Wert soll 1 sein
 ClkSamples = ClkSamples / max(ClkSamples);
 
 % Entscheider
@@ -25,18 +25,18 @@ ClkSamples(ClkSamples <  0.5) = 0;
 ClkSamples(ClkSamples >= 0.5) = 1;
 
 
-% Vektor erstellen, der eine 1 enthält wo ein neues Bit anfängt
+% Vektor erstellen, der eine 1 enthï¿½lt wo ein neues Bit anfï¿½ngt
 BitStart = ClkSamples(1:end) - [0 ClkSamples(1:end-1)];
 
 % wenn das erste Bit schon ne 1 ist wissen wir nicht, ob es wirklich der
 % Anfang eines Bits ist und Ignorieren sie.
 BitStart(1) = 0;
 
-% durch verschiebung entstandene negative Werte löschen
+% durch verschiebung entstandene negative Werte lï¿½schen
 BitStart(BitStart<0) = 0;
 BitStartInd = find(BitStart==1);
 
-% Letzten Abtastpunkt hinzufügen: Letzter index + den abstand zweier BitStarts
+% Letzten Abtastpunkt hinzufï¿½gen: Letzter index + den abstand zweier BitStarts
 BitStart( max(BitStartInd) + (BitStartInd(end) - BitStartInd(end-1)) ) = 1;
 BitStartInd = find(BitStart==1);
 
@@ -49,7 +49,7 @@ BitStartInd = find(BitStart==1);
 
 
 invSF = fliplr(SFSamples);
-nullen = conv(DataSamples, invSF(1,:)); % 'same' schmeißt nur den mittleren Teil raus, der
+nullen = conv(DataSamples, invSF(1,:)); % 'same' schmeiï¿½t nur den mittleren Teil raus, der
 einsen = conv(DataSamples, invSF(2,:)); % so lang ist wie DataSamples uns ClkSamples
 % length(nullen)
 % length(einsen)
@@ -67,7 +67,7 @@ sig = einsen-nullen;
 %%AbtastZeitpunkte
 %%HINWEIS: letzter Abtastzeitpunkt wird aus den vorherigen geschaetzt
 
-% durch das 'same' in der conv Funktion ist es nicht nötig zu schätzen. Der
+% durch das 'same' in der conv Funktion ist es nicht nï¿½tig zu schï¿½tzen. Der
 % letzte Wert in sig ist der den wir suchen
 
 
@@ -87,9 +87,9 @@ sig = einsen-nullen;
 
 
 Abgetastet = sig(BitStartInd);
-Abgetastet(Abgetastet<=0) = 0;
-Abgetastet(Abgetastet>0) = 1;
+%Abgetastet(Abgetastet<=0) = 0;
+%Abgetastet(Abgetastet>0) = 1;
 
-Values = Abgetastet;
+Values = Abgetastet>0;%Abgetastet;
 
 end
