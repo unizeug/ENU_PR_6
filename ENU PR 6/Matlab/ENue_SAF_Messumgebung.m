@@ -233,7 +233,7 @@ grid();
 % grid();
 
 
-savefile = ['Messdaten/Daten_',datestr(clock, 'HHMMSS')];
+savefile = ['../Messdaten/Simulation_',datestr(clock, 'HHMMSS')];
 
 save(savefile, 'NOISEFACTOR', 'BER_1_errechnet', 'BER_1_gemessen', 'BER_2_errechnet', 'BER_2_gemessen', 'BER_3_errechnet', 'BER_3_gemessen', 'SNR_1', 'SNR_2', 'SNR_3')
 
