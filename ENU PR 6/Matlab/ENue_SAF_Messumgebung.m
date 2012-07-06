@@ -31,8 +31,8 @@ Data=a;
     SNR_3 = 0;
 
     
-    
-noises = [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255]   
+%noises = [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255];%Praxis
+noises=[120 200 220 235 250 300 333 366 400 415 435 450 460 470 480 490 495 497 500];   
 for setNoise=noises
         disp('##############################################################')
     setNoise = setNoise 
@@ -233,7 +233,7 @@ grid();
 % grid();
 
 
-savefile = ['Messdaten/Daten_',datestr(clock, 'HHMMSS')];
+savefile = ['../Messdaten/Simulation_',datestr(clock, 'HHMMSS')];
 
 save(savefile, 'NOISEFACTOR', 'BER_1_errechnet', 'BER_1_gemessen', 'BER_2_errechnet', 'BER_2_gemessen', 'BER_3_errechnet', 'BER_3_gemessen', 'SNR_1', 'SNR_2', 'SNR_3')
 
