@@ -53,14 +53,14 @@
     Bitfehlerwahrscheinlichkeit.
     
     \begin{equation}
-	     \begin{split}
-		   E_{b}= \int\limits_{-\infty}^{\infty}  \abs{s(t)}^2 \ dt
-		   \footnote[1]{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
-           Nachrichtenübertragung, S.129}
-		 \label{eq:E_b}
-	     \end{split}
+        \begin{split}
+            E_{b}= \int\limits_{-\infty}^{\infty}  \abs{s(t)}^2 \ dt
+        \end{split}
+        \footnotemark
     \end{equation}  
-    
+     \label{eq:E_b}
+    \footnotetext{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
+           Nachrichtenübertragung, S.129}
     
     \begin{equation}
 	     \begin{split}
@@ -97,8 +97,8 @@ auf die Bifehlerwahrscheinlichkeit hat.
        wird.\\
        Der unterste Ausgang (blau) gibt das Clock Signal aus. Dieses wird mit einem T-Stück zum einen an den Eingang B
        des Picoscope und zum anderen an den CLK Eingang des PCM DECODER-Moduls des Picoscope geschlossen.\\
-       Zuletzt wird der OUTPUT des PCM_Decoder Moduls (Spannung des Faktors zur Verstärkung bzw. Dämpfung des Rauschens)
-       auf einen Multiplizierer gegeben und mit -6 dB multipliziert. Der Ausgang des Multiplizierers wird auf den
+       Zuletzt wird der OUTPUT des PCM\_Decoder Moduls (Spannung des Faktors zur Verstärkung bzw. Dämpfung des
+       Rauschens) auf einen Multiplizierer gegeben und mit -6 dB multipliziert. Der Ausgang des Multiplizierers wird auf den
        zweiten Eingang des zweiten ADDER-Moduls gegeben.\\
        Der Ausgang dieses ADDER-Moduls wird auf den A Eingang des Picoscopes gegeben.
         
