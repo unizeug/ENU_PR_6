@@ -87,9 +87,9 @@ sig = einsen-nullen;
 
 
 Abgetastet = sig(BitStartInd);
-Abgetastet(Abgetastet<=0) = 0;
-Abgetastet(Abgetastet>0) = 1;
+%Abgetastet(Abgetastet<=0) = 0;
+%Abgetastet(Abgetastet>0) = 1;
 
-Values = Abgetastet;%>0;%Abgetastet;
+Values = Abgetastet>0;%Abgetastet;
 
 end
