@@ -35,11 +35,18 @@ Data=a;
     
 noises = [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255]   
 for setNoise= [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255] 
+    
+    
+
+    
+    
+    
         disp('##############################################################')
-    setNoise = setNoise 
+    disp(setNoise) 
 
     parfor SFFNr=1:3
             disp('--------------------------------------------------------------')
+            
     % SFFNr
             % Kanalcodierung
             if SAF==1
@@ -67,6 +74,7 @@ for setNoise= [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255]
             end
 
     %% Kanal- und Filtereinstellungen
+    KanalParameter = struct('SampleRateIdx', 0,'t_bitP', 0)
     KanalParameter.NoiseFactor=setNoise; % Werte von 0 bis 255
     if SAF==1
         FilterParameter = 0
@@ -75,24 +83,10 @@ for setNoise= [120 190 210 220 250 230 235 240 245 250 251 252 253 254 255]
         FilterParameter.BitBlockLength=numel(SF0);
         KanalParameter.BitGroupLength=numel(SF0);
     end
-    if Simulation==0
-        [KanalParameter.ScopeHandle KanalParameter.ScopeVersion]=LoadPicoscope;    
-        KanalParameter.MinimumSampleRate=KanalParameter.SamplesPerBit/KanalParameter.t_bitP*10^6; %in Hz
-        if numel(KanalParameter.ScopeVersion)==numel('3204')
-            KanalParameter.SampleRateIdx=floor(log2(50e6)-log2(KanalParameter.MinimumSampleRate));
-            KanalParameter.SampleRate=50e6/(2^KanalParameter.SampleRateIdx);
-        else
-            if KanalParameter.MinimumSampleRate>=125e6
-                KanalParameter.SampleRateIdx=floor(log2(500e6)-log2(KanalParameter.MinimumSampleRate));
-                KanalParameter.SampleRate=500e6/2^KanalParameter.SampleRateIdx;
-            else
-                KanalParameter.SampleRateIdx=floor(62.5e6/KanalParameter.MinimumSampleRate+2);
-                KanalParameter.SampleRate=62.5e6/(KanalParameter.SampleRateIdx-2);
-            end
-        end
-    else
+    
+    
         KanalParameter.SampleRate=50e6/(2^KanalParameter.SampleRateIdx);
-    end
+    
 
     %% UEbertragung
     [Y,Noise]=Channel(Data,KanalParameter,FilterParameter,abs(Simulation-1));
