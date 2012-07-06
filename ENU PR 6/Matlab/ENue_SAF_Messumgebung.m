@@ -126,7 +126,7 @@ for setNoise=noises
     Bitfehler = sum(abs(a-Y));
 
     BER_gemessen  = Bitfehler/length(a)
-    BER_errechnet = 0.5 * erfc(Amplitude/(sqrt(8*Varianz)))
+    BER_errechnet = 0.5 * erfc(Amplitude/(sqrt(8*Varianz))) % Formel (10.105) im script
 
     SNR = 10*log10(Amplitude/Varianz)
 
