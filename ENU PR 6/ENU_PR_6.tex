@@ -24,33 +24,40 @@
 
 \section{Vorbereitung}
 \begin{quote}
-       Die Ergebnisse der Simulation der Wasserfallkurven ist in Abb. xxx zu sehen. 
+       In diesem Praktikum wird die sogenante Wasserfallkurve betrachtet. Dabei wird die Bitfehlerwahrscheinlichkeit
+       über dem SNR geplottet. Es wird als die Intensität des Rauschens variert und die Bitfehlerwahrscheinlichkeit
+       gemessen. Da das SNR mit Hilfe des Logarithmus berechnet wird, wird ein Ansteigen hin zu den negativen SNR Werten
+       (also da wo die Rauschenleistung größer ist als die Signalleistung, Faktor kleiner null und damit Logarithmus
+       negativ) erwartet. \\
+       Die Ergebnisse der Simulation der Wasserfallkurven ist in Abb. xxx zu sehen.
   
     \begin{equation}
 	     \begin{split}
 		\rho_{01}=\frac{1}{E_{b}} \int\limits_{0}^{T_{Bit}}  s_{0}(t) \cdot s_{1}(t)  \ dt
-		\footnote[1]{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
-           Nachrichtenübertragung, S.129}
+           \footnotemark
 	     \end{split}
     \end{equation} 
-     
+     \label{eq:rho01}
+    \footnotetext{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
+           Nachrichtenübertragung, S.159} 
     
     \begin{equation}
 	     \begin{split}
 		SNR_{E}=\frac{4E_{b}}{N_{0}}(1-\rho_{01})
-		\footnote[1]{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
-           Nachrichtenübertragung, S.129}
-		 \label{eq:SNR}
+           \footnotemark
 	     \end{split}
     \end{equation}  
-    
+     \label{eq:SNR}
+    \footnotetext{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
+           Nachrichtenübertragung, S.160}
+           
     Theoretisch würde man also wegen des Faktors $1-\rho_{01}$ für $\rho_{01}=0$ in Formel \ref{eq:SNR} das kleinste SNR
     und damit den höchsten Bitfehler erwarten. Dies ist in Abb. xxx aber kaum zu sehen. $\rho_{01}=0$ und
     $\rho_{01}=-1/3$ liegen nahezu aufeinander. Dies erklärt sich durch die höhere Bitenergie. Da für die
     Sendeform bei $\rho_{01}=0$ 4 Baud nötig sind (4 Baud heißt in diesem Fall ein Bit besteht aus vier Zeichen,
     entweder -1 oder 1), ergibt sich nach Formel \ref{eq:E_b} ein $E_{b}$ von 4 statt von 3 für $\rho_{01} = -1/3$ und
     $\rho_{01}= -1$. Das $E_{b}$ verbessert wiederum das SNR in Formel \ref{eq:SNR} und damit verringert es auch die
-    Bitfehlerwahrscheinlichkeit. Damit ist das Ergebniss Plausibel und wie erwartet.
+    Bitfehlerwahrscheinlichkeit. Damit verläuft der Plot wie erwartet.
     
     \begin{equation}
         \begin{split}
@@ -65,14 +72,15 @@
     \begin{equation}
 	     \begin{split}
 		p_{Bit}=\frac{1}{2}erfc  \sqrt{\frac{E_{b}}{2N_{0}(1-\rho_{01})}}
-		\footnote[1]{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
-           Nachrichtenübertragung, S.129}
-		 \label{eq:p_bit}
+           \footnotemark
 	     \end{split}
     \end{equation}  
-
-An Formel \ref{eq:p_bit} kann man erkennen, dass die Sendeform, also ob z. B. Rechteck, Dreieck, oder Cosinus keinen
-Einfluss auf die Bifehlerwahrscheinlichkeit hat.
+	 \label{eq:p_bit}
+    \footnotetext{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
+           Nachrichtenübertragung, S.161}
+        
+	An Formel \ref{eq:p_bit} kann man zusätzlich erkennen, dass die Sendeform bei der Übertragung mit SAF, also ob z. B.
+	Rechteck, Dreieck, oder Cosinus keinen Einfluss auf die Bifehlerwahrscheinlichkeit hat.
     
     
 \end{quote}
@@ -130,6 +138,9 @@ Einfluss auf die Bifehlerwahrscheinlichkeit hat.
 \section{Zusammenfassung}
 \begin{quote}
 	
+	Es hat sich in diesem Versuch gezeigt, dass die Bitfehlerwahrscheinlichkeit bei der Übertragung mit Hilfe eines SAF
+	deutlich von der Signalsendeform abhängt. Dabei ist eine Sendeform mit einer normierten Kruzkorrelation zwischen den
+	Sendeimpulsen von -1 zu bevorzugen.
  
     
 \end{quote} % end Sec: section
