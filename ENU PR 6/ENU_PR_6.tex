@@ -24,10 +24,12 @@
 
 \section{Vorbereitung}
 \begin{quote}
-       In diesem Praktikum wird die sogenante Wasserfallkurve betrachtet. Dabei wird die Bitfehlerwahrscheinlichkeit
-       über dem SNR geplottet. Es wird als die Intensität des Rauschens variert und die Bitfehlerwahrscheinlichkeit
-       gemessen. Da das SNR mit Hilfe des Logarithmus berechnet wird, wird ein Ansteigen hin zu den negativen SNR Werten
-       (also da wo die Rauschenleistung größer ist als die Signalleistung, Faktor kleiner null und damit Logarithmus
+       In diesem Praktikum wird die sogenannte Wasserfallkurve betrachtet. Dabei wird die Bitfehlerwahrscheinlichkeit
+       über dem SNR geplottet. Bei der Übertragung von Signalen über einen nicht idealen Kanal wird das Signal mit
+       Rauschen überlagert. Diese Tatsache kann auf der Empfängerseite zu dem Problem führen, dass der Entscheider sich
+       statt einer 0 für eine 1, oder umgekehrt, entscheidet. Um die Wasserfallkurve zu ermitteln, wird die
+       Intensität des Rauschens variiert und die Bitfehlerwahrscheinlichkeit gemessen.
+       Da das SNR mit Hilfe des Logarithmus berechnet wird, wird ein Ansteigen hin zu den negativen SNR Werten (also da wo die Rauschenleistung größer ist als die Signalleistung, Faktor kleiner null und damit Logarithmus
        negativ) erwartet. \\
        Die Ergebnisse der Simulation der Wasserfallkurven ist in Abb. \ref{fig:simu_Wasser} zu sehen.
   
@@ -62,12 +64,12 @@
            Nachrichtenübertragung, S.160}
            
     Theoretisch würde man also wegen des Faktors $(1-\rho_{01})$ für $\rho_{01}=0$ in Formel \ref{eq:SNR} das kleinste
-    SNR und damit den höchsten Bitfehler erwarten. Dies ist in Abb. xxx aber kaum zu sehen. $\rho_{01}=0$ und
-    $\rho_{01}=-1/3$ liegen nahezu aufeinander. Dies erklärt sich durch die höhere Bitenergie. Da für die
+    SNR und damit den höchsten Bitfehler erwarten. Dies ist in Abb.   \ref{fig:simu_Wasser} aber kaum zu sehen.
+    $\rho_{01}=0$ und $\rho_{01}=-1/3$ liegen nahezu aufeinander. Dies erklärt sich durch die höhere Bitenergie. Da für die
     Sendeform bei $\rho_{01}=0$ 4 Baud nötig sind (4 Baud heißt in diesem Fall ein Bit besteht aus vier Zeichen,
     entweder -1 oder 1), ergibt sich nach Formel \ref{eq:E_b} ein $E_{b}$ von 4 statt von 3 für $\rho_{01} = -1/3$ und
     $\rho_{01}= -1$. Das $E_{b}$ verbessert wiederum das SNR in Formel \ref{eq:SNR} und damit verringert es auch die
-    Bitfehlerwahrscheinlichkeit. Damit ist das Ergebnis Plausibel und wie erwartet. 
+    Bitfehlerwahrscheinlichkeit. Damit ist das Ergebnis plausibel und wie erwartet. 
     
     \begin{equation}
         \begin{split}
@@ -90,7 +92,7 @@
            Nachrichtenübertragung, S.161}
         
 	An Formel \ref{eq:p_bit} kann man zusätzlich erkennen, dass die Signalform bei der Übertragung mit SAF, also ob z. B.
-	Rechteck, Dreieck, oder Cosinus keinen Einfluss auf die Bifehlerwahrscheinlichkeit hat.
+	Rechteck, Dreieck, oder Cosinus keinen Einfluss auf die Bitfehlerwahrscheinlichkeit hat.
     
     
 \end{quote}
@@ -103,13 +105,13 @@
     \subsection{Encoderkennlinie}
     \begin{quote}
         
-        Um die Bitfehlerrate messen zu können, werden die D/A-Box, das PCM-DECODER-Modul, die ADDER-Module, Das Picoscope
-       und der NOISE GENERATOR benötigt.\\
+        Um die Bitfehlerrate messen zu können, werden die D/A-Box, das PCM-DECODER-Modul, die ADDER-Module, das
+        Picoscope und der NOISE GENERATOR benötigt.\\
        Der oberste Ausgang (rot) der D/A-Box, der das Datensignal enthält, wird auf das erste ADDER-Modul gegeben, dass
        keine Verstärkungsmöglichkeit enthält und mit einem Offset aus dem VARIABLE DC-Modul addiert. Anschließend wird
        das Ergebnis auf das zweite ADDER-Modul geführt, wo es mit dem Verstärkungsregler auf eine Amlitude von -1..1
        gedämpft wird.\\
-       Der 3. Ausgabe von unten der D/A-Box (gelb) enthält die PCM codierten Datenworte. Diese werden auf den Eingang
+       Der 3. Ausgang von unten der D/A-Box (gelb) enthält die PCM codierten Datenworte. Diese werden auf den Eingang
        PCM DATA des PCM DECODER-Moduls gegeben.\\
        Der 2. Ausgang von unten enthält das Rahmensignal, welches mit dem Gegenstück des PCM-DECODER-Moduls verbunden
        wird.\\
@@ -154,10 +156,10 @@
     Vorbereitungsaufgaben erklärt wurde, tritt hier wieder auf.\\
     In beiden Fällen tritt eine Bitfehlerwahrscheinlichkeit größer null erst für ein SNR kleiner null auf, dass heißt
     wenn die Rauschleistung größer als die Signalleistung wird. Auffällig ist allerdings, dass der Anstieg der
-    Bitfehlerwahrscheinlichkeit in der Simulation erst deutlich später beginnt, als bei den gemessenen Werte. Der Kanal
+    Bitfehlerwahrscheinlichkeit in der Simulation erst deutlich später beginnt, als bei den gemessenen Werten. Der Kanal
     in der Simulation ist also weniger störanfällig.\\
-    Der Bitfehler zeigt für kleiner werdendes SNR exponentiell anzusteigen, muss aber bei 1 sein Maximum erreicht haben,
-    wenn alle Bits fehlerhaft übertragen wurden.
+    Der Bitfehler zeigt für kleiner werdendes SNR einen exponentiellen Anstieg, muss aber bei 1 sein Maximum
+    erreicht haben, wenn alle Bits fehlerhaft übertragen wurden.
     
     \end{quote}
      
@@ -167,11 +169,16 @@
 \begin{quote}
 	
 	Es hat sich in diesem Versuch gezeigt, dass die Bitfehlerwahrscheinlichkeit bei der Übertragung mit Hilfe eines SAF
-	deutlich von der Signalsendeform abhängt. Dabei ist eine Sendeform mit einer normierten Kruzkorrelation zwischen den
-	Sendeimpulsen von -1 zu bevorzugen.
+	deutlich von der Sendeform abhängt. Dabei ist eine Sendeform mit einer normierten Kreuzkorrelation zwischen den
+	Sendeimpulsen von -1 zu bevorzugen. Interessant ist hingegen, dass bei der Übertragung mit speziellen Sendeformen die
+	Signalform auf die Bitfehlerwahrscheinlichkeit keinen Einfluss hat.\\
+	Mit Hilfe von Wasserfallkurven lassen sich also Übertragungskanäle in Bezug auf ihre Fehleranfälligkeit
+	charakterisieren.
  
     
 \end{quote} % end Sec: section
+
+
 
 \newpage
 
