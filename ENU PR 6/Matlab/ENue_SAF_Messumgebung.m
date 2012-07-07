@@ -173,13 +173,13 @@ SNR_1 = SNR_1(2:end);
 SNR_2 = SNR_2(2:end);
 SNR_3 = SNR_3(2:end);
 
-BER_1_gemessen = BER_1_gemessen(2:end)
-BER_2_gemessen = BER_2_gemessen(2:end)
-BER_3_gemessen = BER_3_gemessen(2:end)
+BER_1_gemessen = BER_1_gemessen(2:end);
+BER_2_gemessen = BER_2_gemessen(2:end);
+BER_3_gemessen = BER_3_gemessen(2:end);
 
-BER_1_errechnet = BER_1_errechnet(2:end)
-BER_2_errechnet = BER_2_errechnet(2:end)
-BER_3_errechnet = BER_3_errechnet(2:end)
+BER_1_errechnet = BER_1_errechnet(2:end);
+BER_2_errechnet = BER_2_errechnet(2:end);
+BER_3_errechnet = BER_3_errechnet(2:end);
 
 
 figure(601);
