@@ -31,16 +31,7 @@
        Intensität des Rauschens variiert und die Bitfehlerwahrscheinlichkeit gemessen.
        Da das SNR mit Hilfe des Logarithmus berechnet wird, wird ein Ansteigen hin zu den negativen SNR Werten (also da wo die Rauschenleistung größer ist als die Signalleistung, Faktor kleiner null und damit Logarithmus
        negativ) erwartet. \\
-       Die Ergebnisse der Simulation der Wasserfallkurven ist in Abb. \ref{fig:simu_Wasser} zu sehen.
-  
-       \begin{figure}[H]
-        \centering
-        \includegraphics[scale=0.7, trim = 2cm 7cm 1cm 8cm, clip]{Bilder/Simulation_Wasserfall}
-          \caption{simulierte Wasserfallkurven}
-        \label{fig:simu_Wasser}
-       \end{figure}
-       
-       \vspace{2em}
+    
   
   
     \begin{equation}
@@ -64,13 +55,18 @@
            Nachrichtenübertragung, S.160}
            
     Theoretisch würde man also wegen des Faktors $(1-\rho_{01})$ für $\rho_{01}=0$ in Formel \ref{eq:SNR} das kleinste
-    SNR und damit den höchsten Bitfehler erwarten. Dies ist in Abb.   \ref{fig:simu_Wasser} aber kaum zu sehen.
+    SNR und damit den höchsten Bitfehler erwarten. Für $\rho=-1$ erhält man den damit den minimalen Bitfehler.  Dies ist
+    in Abb. \ref{fig:simu_Wasser} aber kaum zu sehen.
     $\rho_{01}=0$ und $\rho_{01}=-1/3$ liegen nahezu aufeinander. Dies erklärt sich durch die höhere Bitenergie. Da für die
     Sendeform bei $\rho_{01}=0$ 4 Baud nötig sind (4 Baud heißt in diesem Fall ein Bit besteht aus vier Zeichen,
     entweder -1 oder 1), ergibt sich nach Formel \ref{eq:E_b} ein $E_{b}$ von 4 statt von 3 für $\rho_{01} = -1/3$ und
     $\rho_{01}= -1$. Das $E_{b}$ verbessert wiederum das SNR in Formel \ref{eq:SNR} und damit verringert es auch die
-    Bitfehlerwahrscheinlichkeit. Damit ist das Ergebnis plausibel und wie erwartet. 
-    
+    Bitfehlerwahrscheinlichkeit. Das würde bedeuten, je mehr Baud für ein Bit verwendet werden, desto geringer ist die
+    Bitfehlerwahrscheinlichkeit. Allerdings ist dies, wie die meisten scheinbar offensichtlichen Verbesserungen mit
+    einem Trade off zu bezahlen, da sich somit die Länge eines Bit verlängert und somit die Bandbreite der Übertragung
+    sinkt. Gut wäre damit eine auch eine Verringerung der Baudzahl pro Bit auf z.B. zwei (Manchestercode), wobei in
+    diesem Fall die Bitenergie dann wieder sinken würde.
+        
     \begin{equation}
         \begin{split}
             E_{b}= \int\limits_{-\infty}^{\infty} s(t)^2 \ dt
@@ -92,8 +88,30 @@
            Nachrichtenübertragung, S.161}
         
 	An Formel \ref{eq:p_bit} kann man zusätzlich erkennen, dass die Signalform bei der Übertragung mit SAF, also ob z. B.
-	Rechteck, Dreieck, oder Cosinus keinen Einfluss auf die Bitfehlerwahrscheinlichkeit hat.
+	Rechteck, Dreieck, oder Cosinus keinen Einfluss auf die Bitfehlerwahrscheinlichkeit hat.\\
     
+       Um einen SAF zu simulieren, wird das Blockschaltbild \ref{fig:Kanal_pl_SAF} in Matlab umgesetzt. Zunächst wurden
+       3 unterschiedliche Sendeformen erstellt: Für $\rho_{01}=-1/3$ die Sendeformen $[-1  -1   1]$ für eine 0 und
+       die Sendeform $[1  -1  -1]$ für eine 1, für $\rho_{01}=-1$ die Sendeformen $[-1   1  -1]$ für eine 0 und
+       die Sendeform $[1  -1   1]$ für eine 1 und da es für drei Bit keine Möglichkeit gibt einen
+       Kreuzkorrelationkoeffizienten von null zu erzeugen für $\rho_{01}=0$ die Sendeformen $[-1  1  -1  1]$ für eine 0
+       und die Sendeform $[1   1  -1  -1]$ für eine 1.\\
+       Der optimale Abtastzeitpunkt bei der Übertragung mit einem SAF liegt immer am Ende eines zu übertragenden
+       Bits und wiederholt sich somit alle $kT_{Bit}$. Daher wird das Signal CLKSamples so bearbeitet, das ein Vektor
+       resultiert, der bei der steigenden Flanke des Clocksignals eine 1 ausgibt und ansonsten null ist.\\
+       Anschließend werden die beiden Sendeformen gespiegelt, mit dem Datensignal gefaltet und voneinander abgezogen.
+       Das Ergebnis wird dann zu den ermittelten Zeitpunkten $kT_{Bit}$ abgetastet und mit Hilfe eines Entscheiders die
+       Signale 0 und 1 zurückgewonnen.\\
+       Die Ergebnisse der Simulation der Wasserfallkurven ist in Abb. \ref{fig:simu_Wasser} zu sehen. 
+  
+       \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.7, trim = 2cm 7cm 1cm 8cm, clip]{Bilder/Simulation_Wasserfall}
+          \caption{simulierte Wasserfallkurven}
+        \label{fig:simu_Wasser}
+       \end{figure}
+       
+       \vspace{2em}
     
 \end{quote}
 
@@ -152,14 +170,34 @@
        
        \vspace{2em}    
     
-    Die gemessenen Wasserfallkurven sind mit den simulierten nahezu identisch. Der selbe Effekt, der schon in den
-    Vorbereitungsaufgaben erklärt wurde, tritt hier wieder auf.\\
+    Die gemessenen Wasserfallkurven sind mit den simulierten nahezu identisch. Der selbe Effekt für $\rho_{01}=0$, der
+    schon in den Vorbereitungsaufgaben erklärt wurde, tritt hier wieder auf.\\
     In beiden Fällen treten Bitfehler größer null erst für ein SNR kleiner null auf, dass heißt
     wenn die Rauschleistung größer als die Signalleistung wird. Auffällig ist allerdings, dass der Anstieg der
     durchschnittlichen Bitfehler in der Simulation erst deutlich später beginnt, als bei den gemessenen Werten.
     \TODO{Der Kanal in der Simulation ist also weniger störanfällig.\\}
     Der Bitfehler zeigt für kleiner werdendes SNR einen exponentiellen Anstieg, muss Theoretisch aber bei 1 sein Maximum
-    erreicht haben, wenn alle Bits fehlerhaft übertragen wurden.
+    erreicht haben, wenn alle Bits fehlerhaft übertragen wurden.\\
+    Für $\rho_{01}=-1$ ergibt sich wie erwartet der minimale durchschnittliche Bitfehler. Dies ist damit zu begründen,
+    dass bei diesem Kreuzkorrelationskoeffizienten alle Baud von der Sendeform für eine 0 invertiert zu den Baud der
+    Sendeform für eine 1 sind. Das bedeutet, dass die Faltung bei Gleichheitnach Formel \ref{eq:rho01umgestellt} eine
+    Amplitude von $E_{b}$ und bei Ungleichheit $-E_{b}$ ausgibt. Da die beiden Faltungen zwischen der gespiegelten Sendeform für die null und die eins
+    von einander abgezogen werden, erhält man damit eine Amplitude von 2 $E_{b}$. Somit erklärt sich auch die geringe
+    Fehleranfälligkeit. \\
+    Außerdem würde es im Prinzip für $\rho_{01}=-1$ reichen nur eine invertierte Sendeform mit dam
+    Datensignal zu falten. Nullen und Einsen müssten trotzdem zurückgewinnbar sein. Bei den anderen beiden 
+    Kreuzkorrelationskoeffizienten, bei denen die Baud nicht alle invertiert sind ergibt sich damit eine geringerer Wert
+    bei der Faltung mit dem Datensignal und deshalb sind sie auch fehleranfälliger.
+    
+    \begin{equation}
+	     \begin{split}
+		\int\limits_{0}^{T_{Bit}}  s_{0}(t) \cdot s_{1}(t)  \ dt = = E_{b} \cdot \rho_{01}
+           \footnotemark
+	     \end{split}
+    \end{equation} 
+     \label{eq:rho01umgestellt}
+    \footnotetext{Prof. Dr.-Ing. Sikora, Thomas, Foliensatz 10 Binäre Basisbandübertragung, Einführung in die
+           Nachrichtenübertragung, S.159}
     
     \end{quote}
      
@@ -170,8 +208,9 @@
 	
 	Es hat sich in diesem Versuch gezeigt, dass die Bitfehlerwahrscheinlichkeit bei der Übertragung mit Hilfe eines SAF
 	deutlich von der Sendeform abhängt. Dabei ist eine Sendeform mit einer normierten Kreuzkorrelation zwischen den
-	Sendeimpulsen von -1 zu bevorzugen. Interessant ist hingegen, dass bei der Übertragung mit speziellen Sendeformen die
-	Signalform auf die Bitfehlerwahrscheinlichkeit keinen Einfluss hat.\\
+	Sendeimpulsen von -1 zu bevorzugen. Interessant ist hingegen, dass bei der Übertragung mit Sendeformenpaaren
+	für ein festes $\rho_{01}$ die Signalform für die einzelnen Baud auf die Bitfehlerwahrscheinlichkeit keinen Einfluss
+	hat.\\
 	Mit Hilfe von Wasserfallkurven lassen sich also Übertragungskanäle in Bezug auf ihre Fehleranfälligkeit
 	charakterisieren.
  
